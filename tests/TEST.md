@@ -101,7 +101,9 @@ does not establish CI success for these newly added files.
 
 ### Authenticated read verification
 
-An actual account completed QR login and the site's SMS verification. The
+An actual account completed QR login and the site's SMS verification. The SMS
+code was supplied by the user and entered into the same browser session with a
+local diagnostic helper; SMS submission is not a CLI command. The
 sequential live run passed all eight checks: health, authenticated login, search,
 note detail, the current user's profile, unread counts, notification list and an
 independent profile resolved from a notification's own user reference. No case
