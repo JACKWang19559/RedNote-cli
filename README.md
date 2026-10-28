@@ -209,4 +209,18 @@ $env:CLI_ANYTHING_FORCE_INSTALLED = "1"
 
 默认测试验证实际本地草稿文件、HTTP 契约模拟、命令参数与离线请求预览，不访问账号。`live` 实际调用后端，服务不可用或未登录时失败。真实笔记/主页链接可通过 `REDNOTE_LIVE_NOTE_URL`、`REDNOTE_LIVE_USER_URL` 提供。本次没有执行线上发布或互动测试；结果与范围见 [tests/TEST.md](tests/TEST.md)。
 
+### 真实账号只读联调
+
+按上文启动后端并完成扫码登录；如后端启用了鉴权，在当前终端设置匹配的 `REDNOTE_BACKEND_TOKEN`，再从项目根目录运行：
+
+```powershell
+# 可选：提供有效的独立用户主页完整链接，需包含 xsec_token
+# $env:REDNOTE_LIVE_USER_URL = "https://www.xiaohongshu.com/user/profile/USER_ID?xsec_token=TOKEN"
+.\.venv\Scripts\python.exe live/read_smoke.py --output .test-artifacts/read-smoke.json
+```
+
+脚本检查登录、搜索与笔记、自己的主页及通知，并将检查状态、错误码、计数和运行信息写入报告，不保存正文、账号标识或令牌。未设置 `REDNOTE_LIVE_USER_URL` 且通知中没有可用的独立主页引用时，`profile` 标记为 `not_run`，自己的主页 `me` 仍会测试；`not_run` 不代表通过。具体结果以本次生成的报告为准。
+
+退出码：全部通过为 `0`，检查失败为 `1`，仅部分未运行或报告写入失败为 `2`。主页须包含有效基础信息，通知条目须有有效 ID，空对象不会被判定为读取成功。
+
 架构与逐项路由映射见 [REDNOTE.md](REDNOTE.md)。接口核对依据为上游 [routes.go](https://github.com/xpzouying/xiaohongshu-mcp/blob/main/routes.go)、[types.go](https://github.com/xpzouying/xiaohongshu-mcp/blob/main/types.go)、[service.go](https://github.com/xpzouying/xiaohongshu-mcp/blob/main/service.go) 与业务实现。REPL 外观派生自 CLI-Anything，见 [NOTICE](NOTICE)。本项目为独立社区工具，采用 Apache-2.0 许可证。
