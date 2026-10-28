@@ -1,0 +1,7 @@
+RedNote CLI is built following the HKUDS/CLI-Anything methodology.
+cli_anything/rednote/utils/repl_skin.py is derived from HKUDS/CLI-Anything,
+licensed under Apache-2.0: https://github.com/HKUDS/CLI-Anything
+Changes: display the actual bundled skill location and honor color preference on exit.
+The xiaohongshu-mcp backend is a separate user-installed service:
+https://github.com/xpzouying/xiaohongshu-mcp (Apache-2.0).
+This project is an independent community tool, not an official Xiaohongshu client.
